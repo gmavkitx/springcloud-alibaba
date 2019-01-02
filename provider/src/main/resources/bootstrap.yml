@@ -1,0 +1,66 @@
+# 公共配置
+# 注意：必须配置在bootstrap文件才生效
+spring:
+  application:
+    name: provider
+  profiles:
+    # 测试及生产启动时使用-Dspring.profiles.active=dev参数进行变更
+    active: dev
+  cloud:
+    nacos:
+      config:
+        # 设置编码
+        encode: UTF-8
+        # 默认分组
+        group: DEFAULT_GROUP
+        # 设置获取nacos配置的超时时间
+        timeout: 3000
+        # 指定获取的文件格式为yaml，需要在nacos中做对应类型设置，默认为properties
+        file-extension: yaml
+        # 设置表达式中的前缀，默认为 spring.application.name
+        prefix: ${spring.application.name}
+        # 共享的配置文件，可以存放公共的配置。不会被配置的group和file-extension影响，但会受到namespace影响
+        # 也可通过shared-dataids来配置，可以参考官方文档https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/Nacos-config
+        ext-config[0]:
+          # 唯一标识
+          data-id: common.yaml
+          # 组名称
+          group: DEFAULT_GROUP
+          # 是否支持动态刷新
+          refresh: true
+
+# 设置nacos discovery是否支持ribbon
+ribbon:
+  nacos:
+    enabled: true
+
+# /actuator/nacos-discovery查看服务的信息
+management:
+  endpoints:
+    web:
+      exposure:
+        # 设置暴露的信息端口
+        include: '*'
+---
+server:
+  port: 8080
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        # 是否开启动态配置刷新
+        refresh:
+          enabled: true
+        # nacos config服务地址
+        # 注意：如果是域名方式，80端口也要加上
+        server-addr: 127.0.0.1:8848
+        # 设置命名空间，为空间id，不是名字
+        namespace: 284884d4-5985-49e6-8a47-5884a489bec3
+      discovery:
+        # nacos discovery服务地址
+        server-addr: 127.0.0.1:8848
+        namespace: ${spring.cloud.nacos.config.namespace}
+        # 自定义元信息
+        metadata:
+          version: 0.1.0

@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: consumer
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        encode: UTF-8
+        group: DEFAULT_GROUP
+        timeout: 3000
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        ext-config[0]:
+          data-id: common.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+    # sentinel熔断降级配置
+    sentinel:
+      transport:
+        # sentinel的连接地址
+        dashboard: localhost:7000
+        # 默认8719
+        port: 7001
+
+ribbon:
+  nacos:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+---
+server:
+  port: 8081
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        refresh:
+          enabled: true
+        server-addr: 127.0.0.1:8848
+        namespace: 284884d4-5985-49e6-8a47-5884a489bec3
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: ${spring.cloud.nacos.config.namespace}
+        metadata:
+          version: 0.1.0
