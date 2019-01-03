@@ -56,7 +56,7 @@ spring:
         # 注意：如果是域名方式，80端口也要加上
         server-addr: 127.0.0.1:8848
         # 设置命名空间，为空间id，不是名字
-        namespace: 284884d4-5985-49e6-8a47-5884a489bec3
+        namespace: b448f904-064e-44d7-b2fc-fb99dfdadcd2
       discovery:
         # nacos discovery服务地址
         server-addr: 127.0.0.1:8848

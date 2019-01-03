@@ -23,6 +23,11 @@ spring:
         # 默认8719
         port: 7001
 
+# 开启sentinel对feign的支持
+feign:
+  sentinel:
+    enabled: true
+
 ribbon:
   nacos:
     enabled: true
