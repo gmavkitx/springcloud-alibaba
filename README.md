@@ -7,3 +7,10 @@ sh startup.sh -m standalone
 sentinel: http://kim-file.oss-cn-beijing.aliyuncs.com/sentinel-dashboard-1.4.0.jar
 
 java -Dserver.port=7000 -Dcsp.sentinel.dashboard.server=localhost:7000 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.4.0.jar
+
+## 项目规范
+
+- 类注释-属性注释-方法注释
+- 新建模块要包含README.md文件
+- 在rest层使用http文件书写请求示例
+- 写完功能后运行CheckStyle/FindBugs插件进行代码检查
