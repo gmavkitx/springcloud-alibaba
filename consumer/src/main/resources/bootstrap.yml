@@ -22,6 +22,9 @@ spring:
         dashboard: localhost:7000
         # 默认8719
         port: 7001
+      log:
+        # 日志路径
+        dir: ../logs
 
 # 开启sentinel对feign的支持
 feign:
@@ -50,7 +53,20 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 284884d4-5985-49e6-8a47-5884a489bec3
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
         metadata:
           version: 0.1.0
+dubbo:
+  scan:
+    base-packages: com.kimzing
+  application:
+    id: ${spring.application.name}
+    name: ${spring.application.name}
+  registry:
+    id: nacos
+    address: nacos://127.0.0.1:8848
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20880

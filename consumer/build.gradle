@@ -20,6 +20,7 @@ version = '0.1.0'
 sourceCompatibility = 1.8
 
 repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
 }
@@ -30,9 +31,13 @@ ext {
 }
 
 dependencies {
+    implementation project(":api")
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
+    implementation('com.alibaba.boot:dubbo-spring-boot-starter:0.2.1-SNAPSHOT')
+    implementation('com.alibaba:dubbo:2.6.5')
+    implementation('com.alibaba:dubbo-registry-nacos:0.0.1')
     implementation("org.springframework.cloud:spring-cloud-starter-alibaba-nacos-config")
     implementation("org.springframework.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.cloud:spring-cloud-starter-alibaba-sentinel")

@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-/**开启注册发现中心注解*/
+/**开启feign支持*/
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ProviderApplication {

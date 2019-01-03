@@ -59,8 +59,26 @@ spring:
         namespace: b448f904-064e-44d7-b2fc-fb99dfdadcd2
       discovery:
         # nacos discovery服务地址
-        server-addr: 127.0.0.1:8848
+        server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
         # 自定义元信息
         metadata:
           version: 0.1.0
+dubbo:
+  # 扫描包 refrence service
+  scan:
+    base-packages: com.kimzing
+  # 应用配置
+  application:
+    id: ${spring.application.name}
+    name: ${spring.application.name}
+  # 注册配置
+  registry:
+    id: nacos
+    address: nacos://127.0.0.1:8848
+  # 协议配置
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20880
+

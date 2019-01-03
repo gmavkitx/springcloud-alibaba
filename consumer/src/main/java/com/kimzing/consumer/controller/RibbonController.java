@@ -26,7 +26,7 @@ public class RibbonController {
      * 请求provider接口
      *
      * <p>
-     *     TODO 定义监控：@SentinelResource(value = "message")
+     *     定义监控：@SentinelResource(value = "message")
      * </p>
      * @param message
      * @return
