@@ -1,4 +1,4 @@
-package com.kimzing.provider.common.utils.exception;
+package com.kimzing.consumer.common.utils.exception;
 
 
 import com.kimzing.utils.random.RandomUtil;

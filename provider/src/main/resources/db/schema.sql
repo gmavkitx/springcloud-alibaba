@@ -1,9 +1,8 @@
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户名',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
   `balance` decimal(19,2) DEFAULT NULL COMMENT '余额',

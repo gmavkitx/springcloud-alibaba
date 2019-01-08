@@ -26,7 +26,6 @@ public class User implements Serializable {
     /**
      * ID
      */
-    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
     /**
@@ -68,32 +67,31 @@ public class User implements Serializable {
     /**
      * 逻辑删除
      */
-    @TableField("delete_flag")
     @TableLogic
     private Integer deleteFlag;
 
     /**
      * 创建人
      */
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     /**
      * 创建时间
      */
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 操作人
      */
-    @TableField(value = "update_by", fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private String updateBy;
 
     /**
      * 更新时间
      */
-    @TableField(value = "update_time", fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
 

@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /consumer
 spring:
   application:
     name: consumer
@@ -6,20 +9,12 @@ spring:
   cloud:
     nacos:
       config:
-        encode: UTF-8
-        group: DEFAULT_GROUP
-        timeout: 3000
         file-extension: yaml
-        prefix: ${spring.application.name}
-        ext-config[0]:
-          data-id: common.yaml
-          group: DEFAULT_GROUP
-          refresh: true
     # sentinel熔断降级配置
     sentinel:
       transport:
         # sentinel的连接地址
-        dashboard: localhost:7000
+        dashboard: 127.0.0.1:7000
         # 默认8719
         port: 7001
       log:
@@ -48,21 +43,28 @@ spring:
   cloud:
     nacos:
       config:
-        refresh:
-          enabled: true
         server-addr: 127.0.0.1:8848
         namespace: 284884d4-5985-49e6-8a47-5884a489bec3
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
-        metadata:
-          version: 0.1.0
+kim:
+  log:
+    enabled: true
+swagger:
+  title: 消费者服务
+  description: 消费provider提供的服务
+  base-package: com.kimzing.consumer.web
+  base-path: /**
+  exclude-path: /consumer/error, /consumer/actuator/**
+
 dubbo:
   scan:
     base-packages: com.kimzing
   application:
     id: ${spring.application.name}
     name: ${spring.application.name}
+    qos-port: 33333
   registry:
     id: nacos
     address: nacos://127.0.0.1:8848

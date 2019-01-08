@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -34,21 +33,6 @@ public class MybatisPlusConfig {
     }
 
     /**
-     * 处理 DELETE UPDATE 语句， 防止删库跑路！.
-     * <p>
-     *     仅在开发环境开启
-     * </p>
-     * @return
-     */
-    @Bean
-    @Profile({"dev", "default"})
-    public SqlExplainInterceptor explainInterceptor() {
-        SqlExplainInterceptor interceptor = new SqlExplainInterceptor();
-        interceptor.setStopProceed(true);
-        return interceptor;
-    }
-
-    /**
      * 查看SQL执行效率.
      * <p>
      *     参数: maxTime SQL 执行最大时长，超过自动停止运行，有助于发现问题。
@@ -58,7 +42,7 @@ public class MybatisPlusConfig {
      * @return
      */
     @Bean
-    @Profile({"dev", "default", "test"})
+    @Profile({"dev", "test"})
     public PerformanceInterceptor performanceInterceptor() {
         PerformanceInterceptor interceptor = new PerformanceInterceptor();
         interceptor.setMaxTime(100);

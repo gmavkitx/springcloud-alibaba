@@ -34,7 +34,7 @@ public class RibbonController {
     @SentinelResource(value = "message")
     @GetMapping("/msg/{message}")
     public String getProviderMessage(@PathVariable String message) {
-        return restTemplate.getForObject("http://provider/provider/msg/" + message, String.class);
+        return restTemplate.getForObject("http://provider/provider/provider/msg/" + message, String.class);
     }
 
 }

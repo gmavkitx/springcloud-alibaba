@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author KimZing - kimzing@163.com
  * @since 2019-01-03 04:03
  */
-@FeignClient(name = "provider", path = "provider", fallback = ProviderFallback.class)
+@FeignClient(name = "provider", path = "provider/provider", fallback = ProviderFallback.class)
 public interface ProviderClient {
 
     @GetMapping("/msg/{message}")

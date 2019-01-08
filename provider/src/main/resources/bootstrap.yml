@@ -1,5 +1,11 @@
 # 公共配置
-# 注意：必须配置在bootstrap文件才生效
+
+# 配置统一url前缀
+server:
+  servlet:
+    context-path: /provider
+
+# 注意：nacos配置必须配置在bootstrap文件才生效
 spring:
   application:
     name: provider
@@ -9,25 +15,24 @@ spring:
   cloud:
     nacos:
       config:
-        # 设置编码
-        encode: UTF-8
-        # 默认分组
-        group: DEFAULT_GROUP
-        # 设置获取nacos配置的超时时间
-        timeout: 3000
         # 指定获取的文件格式为yaml，需要在nacos中做对应类型设置，默认为properties
-        file-extension: yaml
+        file-extension: yaml        # 设置编码
+        #encode: UTF-8
+        # 默认分组
+        #group: DEFAULT_GROUP
+        # 设置获取nacos配置的超时时间
+        #timeout: 3000
         # 设置表达式中的前缀，默认为 spring.application.name
-        prefix: ${spring.application.name}
+        #prefix: ${spring.application.name}
         # 共享的配置文件，可以存放公共的配置。不会被配置的group和file-extension影响，但会受到namespace影响
         # 也可通过shared-dataids来配置，可以参考官方文档https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/Nacos-config
-        ext-config[0]:
+        #ext-config[0]:
           # 唯一标识
-          data-id: common.yaml
+          #data-id: common.yaml
           # 组名称
-          group: DEFAULT_GROUP
+          #group: DEFAULT_GROUP
           # 是否支持动态刷新
-          refresh: true
+          #refresh: true
 
 # 设置nacos discovery是否支持ribbon
 ribbon:
@@ -49,27 +54,31 @@ spring:
   cloud:
     nacos:
       config:
-        # 是否开启动态配置刷新
-        refresh:
-          enabled: true
         # nacos config服务地址
         # 注意：如果是域名方式，80端口也要加上
         server-addr: 127.0.0.1:8848
         # 设置命名空间，为空间id，不是名字
         namespace: 284884d4-5985-49e6-8a47-5884a489bec3
+        # 是否开启动态配置刷新
+        #refresh:
+          #enabled: true
       discovery:
         # nacos discovery服务地址
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
         # 自定义元信息
-        metadata:
-          version: 0.1.0
+        #metadata:
+          #version: 0.1.0
   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/springcloud?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: 123456
+    # 开启自动建表和插入数据，生产环境关闭
+    initialization-mode: always
+    schema: classpath:db/schema.sql
+    data: classpath:db/data.sql
     hikari:
       # 连接的默认自动提交行为
       auto-commit: true
@@ -86,6 +95,36 @@ spring:
       # 连接只读数据库时配置为true，保证安全
       read-only: false
 
+# Mybaits Plus配置，不写下面的配置，全部使用默认配置也可以运行
+mybatis-plus:
+  #  如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+  #  如果是放在resource目录 classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper/*/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔, 可以再xml中使用类名而不用写全路径
+  type-aliases-package: com.kimzing.provider.domain.po
+  # 扫描枚举类型，可以复写getValue来决定存入数据库的枚举值
+  type-enums-package: com.kimzing.provider.domain.enums
+  configuration:
+    # 配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as,默认为true
+    map-underscore-to-camel-case: true
+    # 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存，默认为 true
+    cache-enabled: false
+  global-config:
+    # 自动加载修改后的Mapper文件,无需重启，仅开发测试环境打开
+    refresh: true
+    db-config:
+      # 主键类型
+      id-type: auto
+      # 字段策略
+      field-strategy: not_null
+      # 将表名中的下划线转换为类的驼峰
+      table-underline: true
+      # 数据库大写下划线转换
+      capital-mode: false
+      # 逻辑删除
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
 # Controller/Service/Repository日志开关
 kim:
   log:
@@ -98,42 +137,7 @@ swagger:
   base-package: com.kimzing.provider.web
   # 匹配的基础url
   base-path: /**
-  exclude-path: /error, /actuator/**
-
-# Mybaits Plus配置，不写下面的配置，全部使用默认配置也可以运行
-mybatis-plus:
-  #  如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
-  #  如果是放在resource目录 classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath:/mapper/*/*Mapper.xml
-  # 实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.kimzing.provider.domain.po
-  type-enums-package: com.kimzing.provider.domain.enums
-  configuration:
-    # 配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-    # 配置JdbcTypeForNull, oracle数据库必须配置
-    jdbc-type-for-null: 'null'
-    #  Sequence序列接口实现类配置
-    # key-generators: com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator
-  global-config:
-    # 刷新mapper 调试神器
-    refresh: true
-    db-config:
-      # 主键类型
-      id-type: id_worker
-      # 字段策略
-      field-strategy: not_null
-      # 将表名和表字段名中的下划线转换为类的驼峰
-      column-underline: true
-      table-underline: true
-      # 全局表前缀
-      # table-prefix: provider_
-      # 数据库大写下划线转换
-      capital-mode: false
-      # 逻辑删除
-      logic-not-delete-value: 0
-      logic-delete-value: 1
+  exclude-path: /provider/error, /provider/actuator/**
 
 dubbo:
   # 扫描包 refrence service

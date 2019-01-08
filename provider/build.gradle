@@ -23,14 +23,15 @@ repositories {
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
     maven { url "http://mvn.kimzing.com/nexus/content/groups/public/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+
 }
 
 ext {
     springCloudVersion = 'Greenwich.RC2'
     springCloudAliVersion = '0.2.1.RELEASE'
-    mybatisPlusVersion = '3.0.7'
-    // TODO 替换为正式版0.2.1
-    dubboSpringBootVersion = '0.2.0'
+    mybatisPlusVersion = '3.0.7.1'
+    dubboSpringBootVersion = '0.2.1-SNAPSHOT'
     dubboVersion = '2.6.5'
     dubboNacosVersion = '0.0.1'
     kimUtilVersion = '1.0.0'
