@@ -12,6 +12,6 @@ import com.alibaba.dubbo.config.annotation.Service;
 public class DubboServiceImpl implements DubboService {
     @Override
     public String hello(String msg) {
-        return "dubbo" + msg;
+        return "dubbo " + msg;
     }
 }
