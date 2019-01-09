@@ -2,12 +2,14 @@ package com.kimzing.provider.common.utils.exception;
 
 
 import com.kimzing.utils.random.RandomUtil;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.net.InetAddress;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,12 +30,6 @@ public class ExceptionManager {
     @Value("${spring.application.name}")
     private String appName;
 
-    /**
-     * TODO 服务端IP
-     */
-    @Value("127.0.0.1")
-    private String serverIp;
-
     @Resource
     Environment environment;
 
@@ -47,7 +43,7 @@ public class ExceptionManager {
         ErrorMessage[] errorMessages = Stream.of(codes)
                 .map(code -> new ErrorMessage(code, environment.getProperty(code)))
                 .toArray(ErrorMessage[]::new);
-        return new ApiException(RandomUtil.uuid(), appName, serverIp, errorMessages);
+        return new ApiException(RandomUtil.uuid(), appName, getHostIp(), errorMessages);
     }
 
     /**
@@ -57,7 +53,7 @@ public class ExceptionManager {
      * @return
      */
     public ApiException create(String message) {
-        return new ApiException(RandomUtil.uuid(), appName, serverIp, new ErrorMessage("COMMON", message));
+        return new ApiException(RandomUtil.uuid(), appName, getHostIp(), new ErrorMessage("COMMON", message));
     }
 
     /**
@@ -74,6 +70,11 @@ public class ExceptionManager {
                 .collect(Collectors.toList());
         apiException.setStackTrace(traceList.toArray(new StackTraceElement[]{}));
         return apiException;
+    }
+
+    @SneakyThrows
+    private String getHostIp() {
+        return InetAddress.getLocalHost().getHostAddress();
     }
 
 }
