@@ -73,7 +73,7 @@ public class ExceptionManager {
     }
 
     @SneakyThrows
-    private String getHostIp() {
+    protected String getHostIp() {
         return InetAddress.getLocalHost().getHostAddress();
     }
 
