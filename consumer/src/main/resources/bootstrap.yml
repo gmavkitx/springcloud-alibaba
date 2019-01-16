@@ -10,6 +10,7 @@ spring:
     nacos:
       config:
         file-extension: yaml
+        active-profiles: default
     # sentinel熔断降级配置
     sentinel:
       transport:
@@ -44,7 +45,7 @@ spring:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
-        namespace: 284884d4-5985-49e6-8a47-5884a489bec3
+        namespace: 99dee64c-59f0-4d7e-86d2-ad575dda79a6
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
