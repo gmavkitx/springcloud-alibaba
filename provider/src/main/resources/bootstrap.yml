@@ -17,6 +17,8 @@ spring:
       config:
         # 指定获取的文件格式为yaml，需要在nacos中做对应类型设置，默认为properties
         file-extension: yaml        # 设置编码
+        # 将nacos的环境始终设置为default,这样就可以使用命名空间来区分配置
+        active-profiles: default
         #encode: UTF-8
         # 默认分组
         #group: DEFAULT_GROUP
@@ -58,7 +60,7 @@ spring:
         # 注意：如果是域名方式，80端口也要加上
         server-addr: 127.0.0.1:8848
         # 设置命名空间，为空间id，不是名字
-        namespace: 284884d4-5985-49e6-8a47-5884a489bec3
+        namespace: 99dee64c-59f0-4d7e-86d2-ad575dda79a6
         # 是否开启动态配置刷新
         #refresh:
           #enabled: true
