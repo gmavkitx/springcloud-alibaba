@@ -124,7 +124,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     private ApiException createByCodeAndMessage(String code, Exception e) {
-        ApiException apiException = new ApiException(RandomUtil.uuid(), appName, exceptionManager.getHostIp(), new ErrorMessage(code, e.getMessage()));
+        ApiException apiException = new ApiException(RandomUtil.uuid(), appName, exceptionManager.getHostIp(),
+                new ErrorMessage(code, e.getMessage()));
         apiException.setStackTrace(e.getStackTrace());
         ApiException simpleApiException = exceptionManager.create(apiException);
         log.error(logTraceInfo(simpleApiException));

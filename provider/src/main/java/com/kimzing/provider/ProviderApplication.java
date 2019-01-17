@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+/**
+ * Provider启动程序
+ */
 @EnableDiscoveryClient
 @EnableSwagger2Doc
 @MapperScan("com.kimzing.provider.mapper")
