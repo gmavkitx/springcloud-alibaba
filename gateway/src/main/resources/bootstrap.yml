@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /gateway
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+      - id: host_route
+        uri: localhost:8080
+        predicates:
+        - Path=/gateway/provider/provider/msg/{message}
+---
+server:
+  port: 8082
+spring:
+  profiles: dev
