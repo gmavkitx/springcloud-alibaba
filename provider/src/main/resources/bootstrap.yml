@@ -17,8 +17,6 @@ spring:
       config:
         # 指定获取的文件格式为yaml，需要在nacos中做对应类型设置，默认为properties
         file-extension: yaml        # 设置编码
-        # 将nacos的环境始终设置为default,这样就可以使用命名空间来区分配置
-        active-profiles: default
         #encode: UTF-8
         # 默认分组
         #group: DEFAULT_GROUP

@@ -1,20 +1,57 @@
-server:
-  servlet:
-    context-path: /gateway
 spring:
   application:
     name: gateway
   profiles:
     active: dev
   cloud:
+    nacos:
+      config:
+        file-extension: yaml
+    # 路由规则
     gateway:
       routes:
-      - id: host_route
-        uri: localhost:8080
+      - id: provider
+        uri: lb://provider
         predicates:
-        - Path=/gateway/provider/provider/msg/{message}
+        # 根据path进行负载路由
+        - Path=/provider/**
+      - id: consumer
+        uri: lb://consumer
+        predicates:
+          - Path=/consumer/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 ---
 server:
   port: 8082
 spring:
   profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 99dee64c-59f0-4d7e-86d2-ad575dda79a6
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+  dubbo:
+    scan:
+      base-packages: com.kimzing
+    application:
+      id: ${spring.application.name}
+      name: ${spring.application.name}
+      qos-port: 33333
+    registry:
+      id: nacos
+      address: nacos://127.0.0.1:8848
+    protocol:
+      id: dubbo
+      name: dubbo
+      port: 20880
+#logging:
+#  level:
+#    root: debug

@@ -10,7 +10,6 @@ spring:
     nacos:
       config:
         file-extension: yaml
-        active-profiles: default
     # sentinel熔断降级配置
     sentinel:
       transport:
