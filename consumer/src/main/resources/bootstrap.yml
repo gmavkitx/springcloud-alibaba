@@ -20,7 +20,7 @@ spring:
         port: 7001
       log:
         # 日志路径
-        dir: ../logs
+        dir: ./logs
 
 # 开启sentinel对feign的支持
 feign:
