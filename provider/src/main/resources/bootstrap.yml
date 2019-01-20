@@ -95,6 +95,14 @@ spring:
       # 连接只读数据库时配置为true，保证安全
       read-only: false
 
+  # SpringBoot Admin Server地址
+  boot:
+    admin:
+      client:
+        url: http://localhost:8083
+        instance:
+          prefer-ip: true
+
 # Mybaits Plus配置，不写下面的配置，全部使用默认配置也可以运行
 mybatis-plus:
   #  如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml

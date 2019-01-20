@@ -4,4 +4,5 @@ include(":api")
 include(":provider")
 include(":consumer")
 include(":gateway")
+include(":admin")
 

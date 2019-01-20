@@ -37,11 +37,14 @@ ext {
     kimUtilVersion = '1.0.0'
     swaggerVersion = '1.4.1.RELEASE'
     nettyVersion = '4.1.32.Final'
+    springBootAdminVersion = '2.1.1'
 }
 
 dependencies {
     // 依赖基础项目
     implementation project(":api")
+    // Admin客户端
+    implementation 'de.codecentric:spring-boot-admin-starter-client'
     // MybatisPlus, 包含Mybatis 基础依赖
     implementation("com.baomidou:mybatis-plus-boot-starter:$mybatisPlusVersion")
     implementation('mysql:mysql-connector-java')
@@ -75,5 +78,6 @@ dependencyManagement {
         // 加入依赖管理，不用书写ali版本号，注意不同springcloud版本引入不同的版本，
         // 参考https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E
         mavenBom "org.springframework.cloud:spring-cloud-alibaba-dependencies:${springCloudAliVersion}"
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
     }
 }

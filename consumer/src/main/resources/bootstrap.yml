@@ -48,6 +48,12 @@ spring:
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
+  boot:
+    admin:
+      client:
+        url: http://localhost:8083
+        instance:
+          prefer-ip: true
 kim:
   log:
     enabled: true
